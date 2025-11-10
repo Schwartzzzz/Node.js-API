@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch("https://checkout.tebex.io/api/checkout", {
+    const response = await fetch("https://plugin.tebex.io/payments", {
       method: "POST",
       headers: {
         "X-Tebex-Secret": process.env.TEBEX_PRIVATE_KEY,
