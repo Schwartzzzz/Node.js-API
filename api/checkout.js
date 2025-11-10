@@ -16,24 +16,25 @@ export default async function handler(req, res) {
         basket: {
           packages: [
             {
-              id: 7091294, // <-- Reemplaza con el ID de tu paquete
+              id: 7091294, // tu package ID
               quantity: 1,
             },
           ],
-          username,
         },
+        username: username,
       }),
     });
 
     const data = await response.json();
 
-    if (!data.links || !data.links.checkout) {
-      return res.status(500).json({ error: "Checkout link not found", data });
+    if (!response.ok) {
+      console.error("Tebex error:", data);
+      return res.status(response.status).json({ error: data });
     }
 
-    return res.redirect(data.links.checkout);
+    return res.status(200).json({ url: data.checkout_url });
   } catch (err) {
-    console.error(err);
+    console.error("Server error:", err);
     return res.status(500).json({ error: "Server error" });
   }
 }
